@@ -16,6 +16,10 @@ class Scraper():
         self.__driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()), options=self.__options)
         self.__products = []
 
+    @property
+    def products(self):
+        return self.__products
+
     def url_builder(self, page_num=None):
         url = f"{self.__base_url}/s?k={self.__keyword}"
         if page_num != None:
@@ -77,8 +81,3 @@ class Scraper():
             'prod_org_price': self.get_original_price(prd),
             'prod_sale': self.get_sale_percent(prd)
             })
-
-    def create_excel_file(self, file_name):
-        df = pd.DataFrame(self.__products)
-        df.to_excel(f"{file_name}.xlsx")
-        return (os.getcwd(), f"{file_name}.xlsx")

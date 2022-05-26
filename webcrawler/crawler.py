@@ -4,7 +4,7 @@ class Crawler(Scraper):
     def __init__(self, keyword) -> None:
         super().__init__(keyword)
 
-    def crawl(self):
+    async def crawl(self):
         page = super().open_page()
         super().get_products()
         page_len = int(super().get_last_page_numer())
@@ -13,9 +13,4 @@ class Crawler(Scraper):
             super().open_page(page)
             super().get_products()
         
-    def get_file_loc(self, filename):
-        return super().create_excel_file(filename)
-
-# sc.create_excel_file("keyboards")
-
-# sc.close_page()
+        super().close_page()
